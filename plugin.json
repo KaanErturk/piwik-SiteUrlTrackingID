@@ -1,7 +1,7 @@
 {
     "name": "SiteUrlTrackingID",
     "description": "Enables to use any of the site URLs of a website as the tracking ID in addition to the numeric site ID.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "theme": false,
     "require": {
         "piwik": ">=2.15.0,<4.0.0-b1",
