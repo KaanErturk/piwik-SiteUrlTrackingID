@@ -1,0 +1,25 @@
+{
+    "name": "SiteUrlTrackingID",
+    "description": "Allows you to use any of the site URLs of a website in the tracking code, instead of the numeric site ID.",
+    "version": "1.0.0",
+    "theme": false,
+    "require": {
+        "piwik": ">=2.15.0,<4.0.0-b1",
+        "php": ">=5.4.0"
+    },
+    "authors": [
+        {
+            "name": "Kaan Erturk",
+            "email": "kaanerturk@gmail.com",
+            "homepage": "https://kaanerturk.net"
+        }
+    ],
+    "support": {
+        "email": "kaanerturk@gmail.com",
+        "issues": "https://github.com/KaanErturk/piwik-SiteUrlTrackingID/issues",
+        "source": "https://github.com/KaanErturk/piwik-SiteUrlTrackingID"
+    },
+    "homepage": "https://github.com/KaanErturk/piwik-SiteUrlTrackingID",
+    "license": "GPL v3+",
+    "keywords": ["domain", "domain name", "site url", "site id", "tracking", "tracking id", "idsite", "main_url", "site_url", "url"]
+}
