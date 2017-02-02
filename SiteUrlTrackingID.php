@@ -8,10 +8,22 @@
 
 namespace Piwik\Plugins\SiteUrlTrackingID;
 
+use Piwik\Common;
 use Piwik\Db;
 
 class SiteUrlTrackingID extends \Piwik\Plugin
 {
+    
+    /**
+     * Get prefixed table name
+     *
+     * @param string $rawTableName
+     * @return string
+     */
+    private function getTable($rawTableName)
+    {
+        return Common::prefixTable($rawTableName);
+    }
     
     /**
      * Register event observers
@@ -35,7 +47,7 @@ class SiteUrlTrackingID extends \Piwik\Plugin
      */
     public function getSiteURL($idSite)
     {
-        $sql = 'SELECT main_url FROM site WHERE idsite = ?';
+        $sql = 'SELECT main_url FROM ' . $this->getTable('site') . ' WHERE idsite = ?';
         
         $siteURL = Db::fetchOne($sql, array($idSite));
         
@@ -54,9 +66,9 @@ class SiteUrlTrackingID extends \Piwik\Plugin
         if (!(is_int($idSite) && $idSite > 0))
         {
             $sql = 'SELECT s.idsite FROM (
-                        (SELECT idsite FROM site WHERE main_url LIKE ?)
+                        (SELECT idsite FROM ' . $this->getTable('site') . ' WHERE main_url LIKE ?)
                             UNION ALL
-                        (SELECT idsite FROM site_url WHERE url LIKE ?)
+                        (SELECT idsite FROM ' . $this->getTable('site_url') . ' WHERE url LIKE ?)
                     ) AS s
                     GROUP BY idsite
                     ORDER BY idsite ASC
