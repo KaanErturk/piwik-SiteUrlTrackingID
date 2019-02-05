@@ -14,13 +14,13 @@ use Piwik\Validators\NotEmpty;
 
 class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
 {
-    /** @var Setting */
-    public $useUrlInTrackingCode;
+	/** @var Setting */
+	public $useUrlInTrackingCode;
 
-    protected function init()
-    {
-        $this->useUrlInTrackingCode = $this->createUseUrlInTrackingCodeSetting();
-    }
+	protected function init()
+	{
+		$this->useUrlInTrackingCode = $this->createUseUrlInTrackingCodeSetting();
+	}
 
 	/**
 	 * Create ModifyTrackingCode Setting checkbox
@@ -29,13 +29,13 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
 	 * 
 	 * @return SystemSetting
 	 */
-    private function createUseUrlInTrackingCodeSetting()
-    {
-        return $this->makeSetting('useUrlInTrackingCode', $default = false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
-            $field->title = 'Use URL for idSite in tracking code';
+	private function createUseUrlInTrackingCodeSetting()
+	{
+		return $this->makeSetting('useUrlInTrackingCode', $default = false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
+			$field->title = 'Use URL for idSite in tracking code';
 			$field->introduction = 'Support for tracking by site URL is currently ENABLED. The following option is available to provide customization of the tracking code if desired.';
-            $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
-            $field->description = 'If enabled, the first URL of the site (as shown on the Websites > Manage screen) will be used instead of the numeric assigned id. Note: Features which rely on the tracking code, like the page overlay may fail to function.';
-        });
-    }
+			$field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
+			$field->description = 'If enabled, the first URL of the site (as shown on the Websites > Manage screen) will be used instead of the numeric assigned id. Note: Features which rely on the tracking code, like the page overlay may fail to function.';
+		});
+	}
 }

@@ -17,20 +17,20 @@ class SiteUrlTrackingID extends \Piwik\Plugin
 {
 	const MAPPING_CACHE_KEY = 'SiteUrlTrackingID.Mapping';
 
-    /**
-     * Register event observers
-     *
-     * @return array
-     */
-    public function registerEvents()
-    {
-        return [
-            'Piwik.getJavascriptCode' => 'getSiteURLjs',
-            'SitesManager.getImageTrackingCode' => 'getSiteURLimg',
-            'Tracker.Request.getIdSite' => 'getSiteID',
+	/**
+	 * Register event observers
+	 *
+	 * @return array
+	 */
+	public function registerEvents()
+	{
+		return [
+			'Piwik.getJavascriptCode' => 'getSiteURLjs',
+			'SitesManager.getImageTrackingCode' => 'getSiteURLimg',
+			'Tracker.Request.getIdSite' => 'getSiteID',
 			'Tracker.setTrackerCacheGeneral'    => 'setTrackerCacheGeneral',
-        ];
-    }
+		];
+	}
 	
 	/**
 	 * Run upon activation of plugin. Clears Tracker Cache so that this plugins setTrackerCacheGeneral method will be called and added to cache
@@ -51,7 +51,7 @@ class SiteUrlTrackingID extends \Piwik\Plugin
 	{
 		TrackerCache::clearCacheGeneral();
 	}
-		
+	
 	/**
 	 * Cache all possible website urls (including aliases) for later lookup
 	 * 
@@ -61,7 +61,7 @@ class SiteUrlTrackingID extends \Piwik\Plugin
 	public function setTrackerCacheGeneral(&$cacheContent)
 	{
 		$siteUrls = new SiteUrls();
-		 
+		
 		$urls = $siteUrls->getAllCachedSiteUrls();
 		
 		$map = [];
@@ -79,34 +79,34 @@ class SiteUrlTrackingID extends \Piwik\Plugin
 		$cacheContent[self::MAPPING_CACHE_KEY] = $map;
 	}
 
-    /**
-     * Get main site URL from the site ID
-     *
-     * @param int $idSite
-     * @return string|int
-     */
-    public function getSiteURL($idSite)
-    {
+	/**
+	 * Get main site URL from the site ID
+	 *
+	 * @param int $idSite
+	 * @return string|int
+	 */
+	public function getSiteURL($idSite)
+	{
 		$siteModel = new SiteModel();
 		
 		$site = $siteModel->getSiteFromId($idSite);
-		        
-        $siteURL = $site["main_url"];
-        
-        return (!empty($siteURL) ? preg_replace('/^.+?\:\/\//i', '', $siteURL) : $idSite);
-    }
+		
+		$siteURL = $site["main_url"];
+		
+		return (!empty($siteURL) ? preg_replace('/^.+?\:\/\//i', '', $siteURL) : $idSite);
+	}
 	
-    /**
-     * Get site ID from the site URL
-     *
-     * @param int &$idSite
-     * @param array $params
-     * @return void
-     */
+	/**
+	 * Get site ID from the site URL
+	 *
+	 * @param int &$idSite
+	 * @param array $params
+	 * @return void
+	 */
 	public function getSiteID(&$idSite, $params)
-    {
-        if (!(is_int($idSite) && $idSite > 0))
-        {
+	{
+		if (!(is_int($idSite) && $idSite > 0))
+		{
 			$siteURLfull = preg_replace(['/^.+?\:\/\//','/\/\s*$/'], '', strtolower($params['idsite']));
 			
 			$siteKey = sha1($siteURLfull);
@@ -115,45 +115,45 @@ class SiteUrlTrackingID extends \Piwik\Plugin
 			
 			$idMapping = $trackerCache[self::MAPPING_CACHE_KEY];
 			
-           if(!empty($idMapping[$siteKey]))
-		   {
+			if(!empty($idMapping[$siteKey]))
+			{
 				$idSite = $idMapping[$siteKey];
-           }
-        }
-    }
+			}
+		}
+	}
 
-    /**
-     * Get site URL for the JavaScript Tracking Code
-     *
-     * @param array &$codeImpl
-     * @param array $parameters
-     * @return void
-     */
-    public function getSiteURLjs(&$codeImpl, $parameters)
-    {
+	/**
+	 * Get site URL for the JavaScript Tracking Code
+	 *
+	 * @param array &$codeImpl
+	 * @param array $parameters
+	 * @return void
+	 */
+	public function getSiteURLjs(&$codeImpl, $parameters)
+	{
 		$settings = new SystemSettings();
 		
 		if($settings->useUrlInTrackingCode->getValue())
 		{
 			$codeImpl['idSite'] = $this->getSiteURL($codeImpl['idSite']);
 		}
-    }
+	}
 
-    /**
-     * Get site URL for the Image Tracking Link
-     *
-     * @param array &$piwikUrl
-     * @param array &$urlParams
-     * @return void
-     */
-    public function getSiteURLimg(&$piwikUrl, &$urlParams)
-    {
+	/**
+	 * Get site URL for the Image Tracking Link
+	 *
+	 * @param array &$piwikUrl
+	 * @param array &$urlParams
+	 * @return void
+	 */
+	public function getSiteURLimg(&$piwikUrl, &$urlParams)
+	{
 		$settings = new SystemSettings();
 		
 		if($settings->useUrlInTrackingCode->getValue())
 		{
 			$urlParams['idsite'] = $this->getSiteURL($urlParams['idsite']);
 		}
-    }
-    
+	}
+	
 }
