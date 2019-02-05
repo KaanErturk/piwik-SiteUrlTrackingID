@@ -1,25 +1,36 @@
 {
     "name": "SiteUrlTrackingID",
     "description": "Enables to use any of the site URLs of a website as the tracking ID in addition to the numeric site ID.",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "theme": false,
     "require": {
-        "piwik": ">=2.15.0,<4.0.0-b1",
+        "piwik": ">=3.3.0-stable,<4.0.0-b1",
         "php": ">=5.4.0"
     },
     "authors": [
         {
             "name": "Kaan Erturk",
             "email": "kaanerturk@gmail.com",
-            "homepage": "https://kaanerturk.net"
+            "homepage": "https:\/\/kaanerturk.net"
         }
     ],
     "support": {
         "email": "kaanerturk@gmail.com",
-        "issues": "https://github.com/KaanErturk/piwik-SiteUrlTrackingID/issues",
-        "source": "https://github.com/KaanErturk/piwik-SiteUrlTrackingID"
+        "issues": "https:\/\/github.com\/KaanErturk\/piwik-SiteUrlTrackingID\/issues",
+        "source": "https:\/\/github.com\/KaanErturk\/piwik-SiteUrlTrackingID"
     },
-    "homepage": "https://github.com/KaanErturk/piwik-SiteUrlTrackingID",
+    "homepage": "https:\/\/github.com\/KaanErturk\/piwik-SiteUrlTrackingID",
     "license": "GPL v3+",
-    "keywords": ["domain", "domain name", "site url", "site id", "tracking", "tracking id", "idsite", "main_url", "site_url", "url"]
+    "keywords": [
+        "domain",
+        "domain name",
+        "site url",
+        "site id",
+        "tracking",
+        "tracking id",
+        "idsite",
+        "main_url",
+        "site_url",
+        "url"
+    ]
 }
